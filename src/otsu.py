@@ -66,6 +66,6 @@ def run(src):
     img = applyThreshold(threshold, I)
 
     # blur image
-    img = cv.blur(img,(5,5), 1)
+    #img = cv.blur(img,(5,5), 1)
     img = Image.fromarray(img)
     img.convert("L").save(f"../segmented/{src}")
