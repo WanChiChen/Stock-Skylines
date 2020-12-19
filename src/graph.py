@@ -32,22 +32,25 @@ def graph(src):
 
 def graph_stonk(ticker, period, start, end):
     data = get_data(ticker, period, start, end)
-    index = data.index
+    date_index = data.index
 
     city = graph("shanghai.jpg")
-    diff = len(index) - len(city)
-    length_scale = len(index) / len(city)
-    city = np.append(city, np.zeros(diff))
+    length_scale = np.ceil(len(date_index) / len(city))
+
+    data = data.reset_index()
+    data = data[data.index % length_scale != 0]
+    data = data.reset_index()
+    data = data.drop('index', axis=1)
 
     value_scale = np.median(city) / data['Close'].median()
     for i in np.arange(len(city)):
         city[i] /= value_scale
 
-    city = pd.DataFrame(data=city, columns=['City'], index=index)
+    city = pd.DataFrame(data=city, columns=['City'])
     data = data.join(city)
 
+    data = data.set_index('Date')
     data.plot()
-    plt.ylim(0, 50)
     plt.show()
 
-graph_stonk('AAPL', '1d', '2010-01-01', '2020-01-25')
+graph_stonk('KO', '1d', '2010-01-01', '2020-01-25')
