@@ -97,3 +97,5 @@ plt.imshow(img, cmap='gray')
 plt.xlabel("Otsu = " + str(threshold))
 
 plt.show()
+img = Image.fromarray(img)
+img.convert("L").save("../segmented/shanghai.jpg")
