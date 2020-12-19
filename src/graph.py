@@ -36,12 +36,21 @@ def graph_stonk(city, ticker, period, start, end):
     date_index = data.index
 
     city_graph = graph(f"{city}.jpg")
-    length_scale = np.ceil(len(date_index) / len(city_graph))
+    length_scale = (len(date_index) / len(city_graph))
 
     data = data.reset_index()
-    data = data[data.index % length_scale != 0]
-    data = data.reset_index()
-    data = data.drop('index', axis=1)
+
+    if length_scale > 1:
+        length_scale = np.ceil(length_scale)
+        data = data[data.index % length_scale != 0]
+        data = data.reset_index()
+        data = data.drop('index', axis=1)
+
+    if length_scale < 1:
+        length_scale = ( 1 / length_scale)
+        length_Scale = int(np.ceil(length_scale))
+        indicies = np.arange(0, city_graph.size, length_scale, dtype='int64')
+        city_graph = np.take(city_graph, indicies)
 
     value_scale = np.median(city_graph) / data['Close'].median()
     for i in np.arange(len(city_graph)):
@@ -56,4 +65,4 @@ def graph_stonk(city, ticker, period, start, end):
     data.plot()
     plt.show()
 
-graph_stonk('shanghai', 'M', '1d', '2010-01-01', '2020-01-25')
+graph_stonk('shanghai', 'M', '1d', '2010-01-01', '2020-12-16')
