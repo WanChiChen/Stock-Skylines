@@ -7,6 +7,7 @@ from otsu import run
 from stonk import get_data
 
 def graph(src):
+    run(src)
     img = Image.open(f"../segmented/{src}")
     img = ImageOps.grayscale(img)
     img = np.asarray(img)
@@ -30,27 +31,29 @@ def graph(src):
 
     return graph
 
-def graph_stonk(ticker, period, start, end):
+def graph_stonk(city, ticker, period, start, end):
     data = get_data(ticker, period, start, end)
     date_index = data.index
 
-    city = graph("shanghai.jpg")
-    length_scale = np.ceil(len(date_index) / len(city))
+    city_graph = graph(f"{city}.jpg")
+    length_scale = np.ceil(len(date_index) / len(city_graph))
 
     data = data.reset_index()
     data = data[data.index % length_scale != 0]
     data = data.reset_index()
     data = data.drop('index', axis=1)
 
-    value_scale = np.median(city) / data['Close'].median()
-    for i in np.arange(len(city)):
-        city[i] /= value_scale
+    value_scale = np.median(city_graph) / data['Close'].median()
+    for i in np.arange(len(city_graph)):
+        city_graph[i] /= value_scale
 
-    city = pd.DataFrame(data=city, columns=['City'])
-    data = data.join(city)
+    city_graph = pd.DataFrame(data=city_graph, columns=[city])
+    data = data.join(city_graph)
 
     data = data.set_index('Date')
+    data = data.rename(columns={"Close" : ticker})
+
     data.plot()
     plt.show()
 
-graph_stonk('KO', '1d', '2010-01-01', '2020-01-25')
+graph_stonk('shanghai', 'M', '1d', '2010-01-01', '2020-01-25')
