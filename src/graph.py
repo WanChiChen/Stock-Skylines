@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import pandas as pd
 from PIL import Image, ImageOps
 from otsu import run
+from stonk import get_data
 
 def graph(src):
     img = Image.open(f"../segmented/{src}")
@@ -24,5 +26,21 @@ def graph(src):
     img = Image.fromarray(graph_img)
     img.convert("L").save(f"../graphs/images/{src}")
     plt.savefig(f"../graphs/charts/{src}")
+    plt.close()
 
-graph("shanghai.jpg")
+    return graph
+    
+def graph_stonk(ticker, period, start, end):
+    data = get_data(ticker, period, start, end)
+    index = data.index
+
+    city = graph("shanghai.jpg")
+    city = np.append(city, np.zeros(len(index) - len(city)))
+
+    city = pd.DataFrame(data=city, columns=['City'], index=index)
+    data = data.join(city)
+
+    data.plot()
+    plt.show()
+
+graph_stonk('CSCO', '1d', '2010-01-01', '2020-01-25')
