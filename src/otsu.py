@@ -55,47 +55,12 @@ image = Image.open('../imgs/shanghai.jpg')
 image = ImageOps.grayscale(image)
 I = np.asarray(image)
 
-fig=plt.figure()
-fig.add_subplot(2, 3, 1)
-plt.imshow(I, cmap='gray')
-plt.xlabel("Original")
-
 # Histogram
 hist = histogram(I)
-
-fig.add_subplot(2, 3, 2)
-plt.bar(np.arange(0,256), hist, color='b', width=5, align='center', alpha=0.25)
-plt.xlabel("Histogram")
-
-# Threshold 1
-threshold = 75
-img = applyThreshold(threshold, I)
-fig.add_subplot(2, 3, 3)
-plt.imshow(img, cmap='gray')
-plt.xlabel("Threshold = " + str(threshold))
-
-# Threshold 2
-threshold = 100
-img = applyThreshold(threshold, I)
-fig.add_subplot(2, 3, 4)
-plt.imshow(img, cmap='gray')
-plt.xlabel("Threshold = " + str(threshold))
-
-# Threshold 3
-threshold = 110
-img = applyThreshold(threshold, I)
-fig.add_subplot(2, 3, 5)
-plt.imshow(img, cmap='gray')
-plt.xlabel("Threshold = " + str(threshold))
 
 # Otsu
 threshold = otsu(hist)
 img = applyThreshold(threshold, I)
 
-fig.add_subplot(2, 3, 6)
-plt.imshow(img, cmap='gray')
-plt.xlabel("Otsu = " + str(threshold))
-
-plt.show()
 img = Image.fromarray(img)
 img.convert("L").save("../segmented/shanghai.jpg")
