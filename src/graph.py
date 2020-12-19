@@ -29,18 +29,25 @@ def graph(src):
     plt.close()
 
     return graph
-    
+
 def graph_stonk(ticker, period, start, end):
     data = get_data(ticker, period, start, end)
     index = data.index
 
     city = graph("shanghai.jpg")
-    city = np.append(city, np.zeros(len(index) - len(city)))
+    diff = len(index) - len(city)
+    length_scale = len(index) / len(city)
+    city = np.append(city, np.zeros(diff))
+
+    value_scale = np.median(city) / data['Close'].median()
+    for i in np.arange(len(city)):
+        city[i] /= value_scale
 
     city = pd.DataFrame(data=city, columns=['City'], index=index)
     data = data.join(city)
 
     data.plot()
+    plt.ylim(0, 50)
     plt.show()
 
-graph_stonk('CSCO', '1d', '2010-01-01', '2020-01-25')
+graph_stonk('AAPL', '1d', '2010-01-01', '2020-01-25')
