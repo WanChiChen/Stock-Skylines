@@ -50,17 +50,19 @@ def applyThreshold(threshold, img):
                 new[i,j] = 0
     return new
             
-# Open Image
-image = Image.open('../imgs/shanghai.jpg')
-image = ImageOps.grayscale(image)
-I = np.asarray(image)
+def run(src):
 
-# Histogram
-hist = histogram(I)
+    # Open Image
+    image = Image.open(f"../imgs/{src}")
+    image = ImageOps.grayscale(image)
+    I = np.asarray(image)
 
-# Otsu
-threshold = otsu(hist)
-img = applyThreshold(threshold, I)
+    # Histogram
+    hist = histogram(I)
 
-img = Image.fromarray(img)
-img.convert("L").save("../segmented/shanghai.jpg")
+    # Otsu
+    threshold = otsu(hist)
+    img = applyThreshold(threshold, I)
+
+    img = Image.fromarray(img)
+    img.convert("L").save(f"../segmented/{src}")
