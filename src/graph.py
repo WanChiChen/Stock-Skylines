@@ -15,6 +15,8 @@ def graph(src):
     graph_img = np.zeros((rows, cols))
     graph = np.zeros(cols)
 
+    print("Graphing City...")
+
     for j in np.arange(cols):
         for i in np.arange(rows):
             if img[i, j] == 0:
@@ -31,12 +33,23 @@ def graph(src):
 
     return graph
 
+def get_similarity(data1, data2):
+    length = min(len(data1), len(data2))
+
+    percents = np.zeros(length)
+    for i in np.arange(length):
+        percents[i] = 100 * np.absolute((data1[i] - data2[i])) / data1[i]
+
+    return 100 - np.mean(percents)
+
 def graph_stonk(city, ticker, period, start, end):
     data = get_data(ticker, period, start, end)
     date_index = data.index
 
     city_graph = graph(f"{city}.jpg")
     length_scale = (len(date_index) / len(city_graph))
+
+    print("Graphing Stock...")
 
     data = data.reset_index()
 
@@ -58,6 +71,10 @@ def graph_stonk(city, ticker, period, start, end):
 
     city_graph = pd.DataFrame(data=city_graph, columns=[city])
     data = data.join(city_graph)
+    data = data.dropna()
+
+    similarity = get_similarity(data['Close'].to_numpy(), data[city].to_numpy())
+    print(f"{city} and {ticker} are {similarity} percent similar")
 
     data = data.set_index('Date')
     data = data.rename(columns={"Close" : ticker})
@@ -65,4 +82,4 @@ def graph_stonk(city, ticker, period, start, end):
     data.plot()
     plt.show()
 
-graph_stonk('singapore', 'JPM', '1d', '2019-01-01', '2020-12-16')
+graph_stonk('Singapore', 'MAR', '1d', '2020-03-01', '2020-08-24')

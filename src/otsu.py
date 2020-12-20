@@ -58,7 +58,9 @@ def run(src):
     image = ImageOps.grayscale(image)
     I = np.asarray(image)
 
+    print("Thresholding...")
     # Histogram
+    
     hist = histogram(I)
 
     # Otsu
