@@ -42,7 +42,6 @@ def graph_stonk(city, ticker, period, start, end):
 
     if length_scale > 1:
         length_scale = np.ceil(length_scale)
-        print(length_scale)
         data = data[data.index % length_scale == 0]
         data = data.reset_index()
         data = data.drop('index', axis=1)
@@ -66,4 +65,4 @@ def graph_stonk(city, ticker, period, start, end):
     data.plot()
     plt.show()
 
-graph_stonk('chicago', 'JPM', '1d', '2010-01-01', '2020-12-16')
+graph_stonk('taipei', 'JPM', '1d', '2010-01-01', '2020-12-16')
