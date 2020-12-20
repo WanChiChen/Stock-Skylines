@@ -65,4 +65,4 @@ def graph_stonk(city, ticker, period, start, end):
     data.plot()
     plt.show()
 
-graph_stonk('taipei', 'JPM', '1d', '2010-01-01', '2020-12-16')
+graph_stonk('singapore', 'JPM', '1d', '2019-01-01', '2020-12-16')
