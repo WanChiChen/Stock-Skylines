@@ -2,33 +2,39 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
+import os.path
 from PIL import Image, ImageOps
 from otsu import run
 from stonk import get_data
 
 def graph(src):
-    run(src)
-    img = Image.open(f"../segmented/{src}")
-    img = ImageOps.grayscale(img)
-    img = np.asarray(img)
-    rows, cols = img.shape
-    graph_img = np.zeros((rows, cols))
-    graph = np.zeros(cols)
 
-    print("Graphing City...")
+    if not os.path.isfile(f"../graphs/charts/{src}.tsv"):
+        run(src)
+        img = Image.open(f"../segmented/{src}")
+        img = ImageOps.grayscale(img)
+        img = np.asarray(img)
+        rows, cols = img.shape
+        graph_img = np.zeros((rows, cols))
+        graph = np.zeros(cols)
 
-    for j in np.arange(cols):
-        for i in np.arange(rows):
-            if img[i, j] == 0:
-                graph_img[i, j] = 255
-                graph[j] = rows - i
-                break
+        print("Graphing City...")
 
-    np.savetxt(f"../graphs/charts/{src}.tsv", graph, delimiter="\t")
+        for j in np.arange(cols):
+            for i in np.arange(rows):
+                if img[i, j] == 0:
+                    graph_img[i, j] = 255
+                    graph[j] = rows - i
+                    break
 
-    plt.plot(np.arange(cols), graph)
-    plt.savefig(f"../graphs/images/{src}")
-    plt.close()
+        np.savetxt(f"../graphs/charts/{src}.tsv", graph, delimiter="\t")
+
+        plt.plot(np.arange(cols), graph)
+        plt.savefig(f"../graphs/images/{src}")
+        plt.close()
+
+    else:
+        graph =  np.genfromtxt(f"../graphs/charts/{src}.tsv", delimiter="\t")
 
     return graph
 
@@ -81,4 +87,4 @@ def graph_stonk(city, ticker, period, start, end):
     data.plot()
     plt.show()
 
-graph_stonk('Singapore', 'MAR', '1d', '2020-03-01', '2020-08-24')
+graph_stonk('Shanghai', 'MAR', '1d', '2020-03-01', '2020-08-24')
