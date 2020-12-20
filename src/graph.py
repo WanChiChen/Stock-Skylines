@@ -24,11 +24,10 @@ def graph(src):
                 graph[j] = rows - i
                 break
 
+    np.savetxt(f"../graphs/charts/{src}.tsv", graph, delimiter="\t")
+
     plt.plot(np.arange(cols), graph)
-    plt.ylim(0, 700)
-    img = Image.fromarray(graph_img)
-    img.convert("L").save(f"../graphs/images/{src}")
-    plt.savefig(f"../graphs/charts/{src}")
+    plt.savefig(f"../graphs/images/{src}")
     plt.close()
 
     return graph
