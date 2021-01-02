@@ -52,7 +52,13 @@ def graph_stonk(city, ticker, period, start, end):
     date_index = data.index
 
     city_graph = graph(f"{city}.jpg")
-    length_scale = (len(date_index) / len(city_graph))
+    train_length = int(0.6 * len(city_graph))
+    train_graph = city_graph[:train_length]
+    test_graph = city_graph[train_length:]
+    
+    diff = len(city_graph) - train_length
+
+    length_scale = (len(date_index) / train_length)
 
     print("Graphing Stock...")
 
@@ -65,20 +71,36 @@ def graph_stonk(city, ticker, period, start, end):
         data = data.drop('index', axis=1)
 
     if length_scale < 1:
-        length_scale = ( 1 / length_scale)
-        length_scale = int(np.ceil(length_scale))
-        indicies = np.arange(0, city_graph.size, length_scale, dtype='int64')
-        city_graph = np.take(city_graph, indicies)
 
-    value_scale = np.median(city_graph) / data['Close'].median()
-    for i in np.arange(len(city_graph)):
-        city_graph[i] /= value_scale
+        length_scale = ( 1.0 / length_scale)
+        length_scale = int(length_scale)
+        indicies = np.arange(0, train_length, length_scale, dtype='int64')
+        train_graph = np.take(train_graph, indicies)
 
-    city_graph = pd.DataFrame(data=city_graph, columns=[city])
-    data = data.join(city_graph)
-    data = data.dropna()
+        indicies = np.arange(0, diff, length_scale, dtype='int64')
+        test_graph = np.take(test_graph, indicies)
 
-    similarity = get_similarity(data['Close'].to_numpy(), data[city].to_numpy())
+    train_graph = np.append(train_graph, test_graph)
+
+    value_scale = np.median(train_graph) / data['Close'].median()
+    for i in np.arange(len(train_graph)):
+        train_graph[i] /= value_scale
+
+    train_graph = pd.DataFrame(data=train_graph, columns=[city])
+
+    more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(train_graph) -len(data), freq="D").to_series()
+    dates = data['Date']
+    dates = dates.append(more_dates)
+    dates = pd.DataFrame(data=dates, columns=['Date']).reset_index().drop('index', axis=1)
+
+    if len(date_index) > train_length:
+        data = data.join(train_graph)
+    else:
+        data = train_graph.join(data)
+        data = data.drop('Date', axis=1).join(dates)
+
+    sim_graph = data.dropna()
+    similarity = get_similarity(sim_graph['Close'].to_numpy(), sim_graph[city].to_numpy())
     print(f"{city} and {ticker} are {similarity} percent similar")
 
     data = data.set_index('Date')
