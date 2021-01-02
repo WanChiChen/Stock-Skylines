@@ -119,7 +119,6 @@ def find_max_city(ticker, period, start, end, ratio):
             max_sim = data[0]
             max_city = data[1]
 
+    max_city.plot()
+    plt.show()
     return max_sim, max_city
-
-
-find_max_city('MAR', '1d', '2020-03-01', '2020-08-24', 0.8)
