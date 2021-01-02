@@ -18,8 +18,6 @@ def graph(src):
         graph_img = np.zeros((rows, cols))
         graph = np.zeros(cols)
 
-        print("Graphing City...")
-
         for j in np.arange(cols):
             for i in np.arange(rows):
                 if img[i, j] == 0:
@@ -47,20 +45,18 @@ def get_similarity(data1, data2):
 
     return 100 - np.mean(percents)
 
-def graph_stonk(city, ticker, period, start, end):
+def graph_stonk(city, ticker, period, start, end, ratio):
     data = get_data(ticker, period, start, end)
     date_index = data.index
 
     city_graph = graph(f"{city}.jpg")
-    train_length = int(0.6 * len(city_graph))
+    train_length = int(ratio * len(city_graph))
     train_graph = city_graph[:train_length]
     test_graph = city_graph[train_length:]
     
     diff = len(city_graph) - train_length
 
     length_scale = (len(date_index) / train_length)
-
-    print("Graphing Stock...")
 
     data = data.reset_index()
 
@@ -72,7 +68,7 @@ def graph_stonk(city, ticker, period, start, end):
 
     if length_scale < 1:
 
-        length_scale = ( 1.0 / length_scale)
+        length_scale = (1.0 / length_scale)
         length_scale = int(length_scale)
         indicies = np.arange(0, train_length, length_scale, dtype='int64')
         train_graph = np.take(train_graph, indicies)
@@ -106,7 +102,24 @@ def graph_stonk(city, ticker, period, start, end):
     data = data.set_index('Date')
     data = data.rename(columns={"Close" : ticker})
 
-    data.plot()
-    plt.show()
+    #data.plot()
+    #plt.show()
 
-graph_stonk('Shanghai', 'MAR', '1d', '2020-03-01', '2020-08-24')
+    return similarity, data
+
+def find_max_city(ticker, period, start, end, ratio):
+    cities = ['Berlin', 'Chicago', 'Hong Kong', 'New York', 'Paris', 'San Francisco', 'Shanghai', 'Singapore']
+
+    max_sim = 0
+    max_city = None
+
+    for city in cities:
+        data = graph_stonk(city, ticker, period, start, end, ratio)
+        if data[0] > max_sim:
+            max_sim = data[0]
+            max_city = data[1]
+
+    return max_sim, max_city
+
+
+find_max_city('MAR', '1d', '2020-03-01', '2020-08-24', 0.8)
