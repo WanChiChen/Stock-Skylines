@@ -99,7 +99,6 @@ def graph_stonk(city, ticker, period, start, end, ratio):
 
     sim_graph = data.dropna()
     similarity = get_similarity(sim_graph['Close'].to_numpy(), sim_graph[city].to_numpy())
-    print(f"{city} and {ticker} are {similarity} percent similar")
 
     data = data.set_index('Date')
     data = data.rename(columns={"Close" : ticker})

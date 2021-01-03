@@ -22,6 +22,6 @@ def stock_detail(request):
             max_city = find_max_city(serializer.data['ticker'], serializer.data['period'], serializer.data['start'], serializer.data['end'], float(serializer.data['ratio']))
             res = {}
             res['similarity'] = max_city[0]
-            print(max_city[1])
+
             res['data'] = max_city[1].to_json()
             return JsonResponse(res, status=status.HTTP_201_CREATED) 
