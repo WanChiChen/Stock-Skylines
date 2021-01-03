@@ -54,18 +54,20 @@ def graph_stonk(city, ticker, period, start, end, ratio):
     train_graph = city_graph[:train_length]
     test_graph = city_graph[train_length:]
     
-    diff = len(city_graph) - train_length
-
+    diff = np.abs(len(city_graph) - train_length)
     length_scale = (len(date_index) / train_length)
 
     data = data.reset_index()
 
     if length_scale > 1:
+        original_length = len(data)
         length_scale = np.ceil(length_scale)
         data = data[data.index % length_scale == 0]
         data = data.reset_index()
         data = data.drop('index', axis=1)
 
+        test_graph = city_graph[len(data):]
+        
     if length_scale < 1:
 
         length_scale = (1.0 / length_scale)
@@ -77,23 +79,23 @@ def graph_stonk(city, ticker, period, start, end, ratio):
         test_graph = np.take(test_graph, indicies)
 
     train_graph = np.append(train_graph, test_graph)
-
     value_scale = np.median(train_graph) / data['Close'].median()
     for i in np.arange(len(train_graph)):
         train_graph[i] /= value_scale
 
     train_graph = pd.DataFrame(data=train_graph, columns=[city])
 
-    more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(train_graph) -len(data), freq="D").to_series()
+    if len(date_index) > train_length:
+        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(test_graph), freq="D").to_series()
+
+    else:
+        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(train_graph) -len(data), freq="D").to_series()
+    
     dates = data['Date']
     dates = dates.append(more_dates)
     dates = pd.DataFrame(data=dates, columns=['Date']).reset_index().drop('index', axis=1)
-
-    if len(date_index) > train_length:
-        data = data.join(train_graph)
-    else:
-        data = train_graph.join(data)
-        data = data.drop('Date', axis=1).join(dates)
+    data = train_graph.join(data)
+    data = data.drop('Date', axis=1).join(dates)
 
     sim_graph = data.dropna()
     similarity = get_similarity(sim_graph['Close'].to_numpy(), sim_graph[city].to_numpy())
@@ -101,10 +103,8 @@ def graph_stonk(city, ticker, period, start, end, ratio):
 
     data = data.set_index('Date')
     data = data.rename(columns={"Close" : ticker})
-
-    #data.plot()
-    #plt.show()
-
+    data.plot()
+    plt.show()
     return similarity, data
 
 def find_max_city(ticker, period, start, end, ratio):
