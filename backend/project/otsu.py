@@ -54,7 +54,7 @@ def applyThreshold(threshold, img):
 def run(src):
 
     # Open Image
-    image = Image.open(f"../imgs/{src}")
+    image = Image.open(f"../backend/imgs/{src}")
     image = ImageOps.grayscale(image)
     I = np.asarray(image)
 
@@ -69,4 +69,4 @@ def run(src):
     # blur image
     #img = cv.blur(img,(5,5), 1)
     img = Image.fromarray(img)
-    img.convert("L").save(f"../segmented/{src}")
+    img.convert("L").save(f"../backend/segmented/{src}")

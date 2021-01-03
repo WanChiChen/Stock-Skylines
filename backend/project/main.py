@@ -1,5 +1,5 @@
 import argparse
-from graph import find_max_city, graph_stonk
+from .graph import find_max_city, graph_stonk
 
 
 # sample input: find_max_city('MAR', '1d', '2020-10-01', '2020-12-31', 0.8)

@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os.path
 from PIL import Image, ImageOps
-from otsu import run
-from stonk import get_data
+from .otsu import run
+from .stonk import get_data
+from os import listdir
 
 def graph(src):
-
-    if not os.path.isfile(f"../graphs/charts/{src}.tsv"):
+    if not os.path.isfile(f"../backend/graphs/charts/{src}.tsv"):
         run(src)
-        img = Image.open(f"../segmented/{src}")
+        img = Image.open(f"../backend/segmented/{src}")
         img = ImageOps.grayscale(img)
         img = np.asarray(img)
         rows, cols = img.shape
@@ -25,14 +25,14 @@ def graph(src):
                     graph[j] = rows - i
                     break
 
-        np.savetxt(f"../graphs/charts/{src}.tsv", graph, delimiter="\t")
+        np.savetxt(f"../backend/graphs/charts/{src}.tsv", graph, delimiter="\t")
 
         plt.plot(np.arange(cols), graph)
-        plt.savefig(f"../graphs/images/{src}")
+        plt.savefig(f"../backend/graphs/images/{src}")
         plt.close()
 
     else:
-        graph =  np.genfromtxt(f"../graphs/charts/{src}.tsv", delimiter="\t")
+        graph =  np.genfromtxt(f"../backend/graphs/charts/{src}.tsv", delimiter="\t")
 
     return graph
 
@@ -103,8 +103,7 @@ def graph_stonk(city, ticker, period, start, end, ratio):
 
     data = data.set_index('Date')
     data = data.rename(columns={"Close" : ticker})
-    data.plot()
-    plt.show()
+
     return similarity, data
 
 def find_max_city(ticker, period, start, end, ratio):
@@ -119,6 +118,4 @@ def find_max_city(ticker, period, start, end, ratio):
             max_sim = data[0]
             max_city = data[1]
 
-    max_city.plot()
-    plt.show()
-    return max_sim, max_city
+    return max_sim, max_city.dropna()
