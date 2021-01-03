@@ -5,8 +5,10 @@ from .models import Project
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
-            'id',
-            'medium_url',
-            'description',
+            'ticker',
+            'period',
+            'start',
+            'end',
+            'ratio',
         )
         model = Project
