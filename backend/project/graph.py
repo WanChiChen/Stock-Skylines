@@ -95,7 +95,8 @@ def graph_stonk(city, ticker, period, start, end, ratio):
     dates = dates.append(more_dates)
     dates = pd.DataFrame(data=dates, columns=['Date']).reset_index().drop('index', axis=1)
     data = train_graph.join(data)
-    data = data.drop('Date', axis=1).join(dates)
+    data = data.drop('Date', axis=1)
+    data = dates.join(data)
 
     sim_graph = data.dropna()
     similarity = get_similarity(sim_graph['Close'].to_numpy(), sim_graph[city].to_numpy())
@@ -117,4 +118,4 @@ def find_max_city(ticker, period, start, end, ratio):
             max_sim = data[0]
             max_city = data[1]
 
-    return max_sim, max_city.dropna()
+    return max_sim, max_city
