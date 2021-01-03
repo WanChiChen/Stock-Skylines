@@ -86,10 +86,10 @@ def graph_stonk(city, ticker, period, start, end, ratio):
     train_graph = pd.DataFrame(data=train_graph, columns=[city])
 
     if len(date_index) > train_length:
-        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(test_graph), freq="D").to_series()
+        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(test_graph), freq="D").to_series().iloc[1:]
 
     else:
-        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(train_graph) -len(data), freq="D").to_series()
+        more_dates = pd.date_range(data.iloc[len(data)-1]['Date'], periods = len(train_graph) -len(data), freq="D").to_series().iloc[1:]
     
     dates = data['Date']
     dates = dates.append(more_dates)
@@ -117,5 +117,5 @@ def find_max_city(ticker, period, start, end, ratio):
         if data[0] > max_sim:
             max_sim = data[0]
             max_city = data[1]
-
+    print(max_city)
     return max_sim, max_city
