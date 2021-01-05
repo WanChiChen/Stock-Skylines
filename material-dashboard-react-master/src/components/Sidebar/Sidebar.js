@@ -118,12 +118,6 @@ export default function Sidebar(props) {
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
           </div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
@@ -139,12 +133,6 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
         </Drawer>
       </Hidden>
     </div>
@@ -154,7 +142,7 @@ export default function Sidebar(props) {
 Sidebar.propTypes = {
   rtlActive: PropTypes.bool,
   handleDrawerToggle: PropTypes.func,
-  bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
+  bgColor: "blue",
   logo: PropTypes.string,
   image: PropTypes.string,
   logoText: PropTypes.string,
