@@ -25,6 +25,7 @@ import { Line } from 'react-chartjs-2'
 
 
 import { bugs, website, server } from "variables/general.js";
+import { fetchService } from "utils/fetchService.js"
 
 import {
   dailySalesChart,
