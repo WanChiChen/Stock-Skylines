@@ -39,7 +39,6 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 const handleFormSubmit = async () => {
-  console.log("smaint")
   const response = await post("/api/", {
     ticker: "MAR",
     period: "1d",
@@ -48,9 +47,13 @@ const handleFormSubmit = async () => {
     ratio: "0.8"
   });
 
-  console.log(response)
-}
+  let data = JSON.parse(response.data);
+  let keys = Object.keys(data);
+  let stock_price = data[keys[0]];
+  let city_price = data[keys[1]];
 
+  console.log(city_price);
+}
 export default function Dashboard() {
   const classes = useStyles();
   console.log(dailySalesChart.data)
