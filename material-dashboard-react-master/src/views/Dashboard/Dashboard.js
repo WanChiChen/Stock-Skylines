@@ -15,6 +15,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/Table.js";
 import Tasks from "components/Tasks/Tasks.js";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
+import Button from "components/CustomButtons/Button.js";
 import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
@@ -25,7 +26,7 @@ import { Line } from 'react-chartjs-2'
 
 
 import { bugs, website, server } from "variables/general.js";
-import { fetchService } from "utils/fetchService.js"
+import {post} from "utils/fetchService.js";
 
 import {
   dailySalesChart,
@@ -37,11 +38,27 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 
 const useStyles = makeStyles(styles);
 
+const handleFormSubmit = async () => {
+  console.log("smaint")
+  const response = await post("/api/", {
+    ticker: "MAR",
+    period: "1d",
+    start: "2010-10-01",
+    end: "2020-12-31",
+    ratio: "0.8"
+  });
+
+  console.log(response)
+}
+
 export default function Dashboard() {
   const classes = useStyles();
   console.log(dailySalesChart.data)
   return (
     <div>
+          <Button onClick={handleFormSubmit}>
+
+          </Button>
           <Card chart>
             <CardBody>
               <h4 className={classes.cardTitle}>Daily Sales</h4>
