@@ -21,6 +21,8 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
+import { Line } from 'react-chartjs-2'
+
 
 import { bugs, website, server } from "variables/general.js";
 
@@ -36,20 +38,10 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+  console.log(dailySalesChart.data)
   return (
     <div>
-      <GridContainer>
-        <GridItem>
           <Card chart>
-            <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader>
             <CardBody>
               <h4 className={classes.cardTitle}>Daily Sales</h4>
               <p className={classes.cardCategory}>
@@ -59,14 +51,19 @@ export default function Dashboard() {
                 increase in today sales.
               </p>
             </CardBody>
+            <Line
+                className="ct-chart"
+                data={dailySalesChart.data}
+                type="Line"
+                options={dailySalesChart.options}
+                listener={dailySalesChart.animation}
+              />
             <CardFooter chart>
               <div className={classes.stats}>
                 <AccessTime /> updated 4 minutes ago
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
-      </GridContainer>
     </div>
   );
 }
