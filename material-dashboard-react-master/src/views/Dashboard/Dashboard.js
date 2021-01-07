@@ -38,6 +38,10 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 
 const useStyles = makeStyles(styles);
 
+let stockPriceArray = []
+let cityPriceArray = []
+let dateArray = []
+
 const handleFormSubmit = async () => {
   const response = await post("/api/", {
     ticker: "MAR",
@@ -55,8 +59,13 @@ const handleFormSubmit = async () => {
   Object.keys(stock_price).forEach(date => {
     let utc = new Date(0);
     utc.setUTCMilliseconds(date)
-    console.log(utc)
+    dateArray.push(utc)
+
+    stockPriceArray.push(stock_price[date])
+    cityPriceArray.push(city_price[date])
   })
+
+  console.log(stockPriceArray)
 }
 export default function Dashboard() {
   const classes = useStyles();
