@@ -52,7 +52,11 @@ const handleFormSubmit = async () => {
   let stock_price = data[keys[0]];
   let city_price = data[keys[1]];
 
-  console.log(city_price);
+  Object.keys(stock_price).forEach(date => {
+    let utc = new Date(0);
+    utc.setUTCMilliseconds(date)
+    console.log(utc)
+  })
 }
 export default function Dashboard() {
   const classes = useStyles();
