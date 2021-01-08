@@ -38,10 +38,6 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 
 const useStyles = makeStyles(styles);
 
-let stockPriceArray = []
-let cityPriceArray = []
-let dateArray = []
-
 export default function Dashboard(props) {
   const classes = useStyles();
 
@@ -58,6 +54,10 @@ export default function Dashboard(props) {
 
       if (ret.errors)
         return;
+
+      let stockPriceArray = []
+      let cityPriceArray = []
+      let dateArray = []
 
       let data = JSON.parse(ret.data);
       let keys = Object.keys(data);
