@@ -11,10 +11,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
-
+import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -82,18 +83,10 @@ export default function Sidebar(props) {
   );
   var brand = (
     <div className={classes.logo}>
-      <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
-        className={classNames(classes.logoLink, {
-          [classes.logoLinkRTL]: props.rtlActive
-        })}
-        target="_blank"
-      >
         <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
+
         </div>
         {logoText}
-      </a>
     </div>
   );
   return (
@@ -116,9 +109,9 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
-            {links}
           </div>
         </Drawer>
+        
       </Hidden>
       <Hidden smDown implementation="css">
         <Drawer
@@ -132,6 +125,31 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
+          
+          <CustomInput
+            labelText="TSLA"
+            id="ticker"
+            formControlProps={{
+              fullWidth: false
+            }}
+          />
+          <InputLabel style={{ color: "#AAAAAA" }}>Ticker</InputLabel>
+          <CustomInput
+            labelText="01-01-2020"
+            id="start"
+            formControlProps={{
+              fullWidth: false
+            }}
+          />
+          <InputLabel style={{ color: "#AAAAAA" }}>Start Date</InputLabel>
+          <CustomInput
+            labelText="12-31-2020"
+            id="end"
+            formControlProps={{
+              fullWidth: false
+            }}
+          />
+          <InputLabel style={{ color: "#AAAAAA" }}>End Date</InputLabel>
           <div className={classes.sidebarWrapper}>{links}</div>
         </Drawer>
       </Hidden>
