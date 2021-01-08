@@ -47,9 +47,9 @@ export default function Dashboard() {
 
   const handleFormSubmit = async () => {
     const response = await post("/api/", {
-      ticker: "MAR",
+      ticker: "BABA",
       period: "1d",
-      start: "2010-10-01",
+      start: "2020-01-01",
       end: "2020-12-31",
       ratio: "0.8"
     });
@@ -62,6 +62,7 @@ export default function Dashboard() {
     Object.keys(stock_price).forEach(date => {
       let utc = new Date(0);
       utc.setUTCMilliseconds(date)
+      utc = utc.toLocaleDateString()
       dateArray.push(utc)
   
       stockPriceArray.push(stock_price[date])
@@ -72,13 +73,13 @@ export default function Dashboard() {
       labels: dateArray,
       datasets: [
       {
-        label: 'Stock',
+        label: keys[0],
         data: stockPriceArray,
         backgroundColor: 'rgba(75,192,192,0.4)',
 				borderColor: 'rgba(75,192,192,1)',
       },
       {
-        label: 'City',
+        label: keys[1],
         data: cityPriceArray,
         backgroundColor: 'rgba(165, 255, 140,0.4)',
 				borderColor: 'rgba(165, 255, 140,1)',
@@ -86,11 +87,13 @@ export default function Dashboard() {
       ]
     }
   
-    setState({data: retData});
+    setState({data: retData, ticker: keys[0], city: keys[1]});
   }
   
   const [state, setState] = React.useState({
-    data: []
+    data: [],
+    ticker: '',
+    city: '',
   });
 
   return (
