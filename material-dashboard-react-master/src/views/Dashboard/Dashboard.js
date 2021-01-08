@@ -73,11 +73,15 @@ export default function Dashboard() {
       datasets: [
       {
         label: 'Stock',
-        data: stockPriceArray
+        data: stockPriceArray,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+				borderColor: 'rgba(75,192,192,1)',
       },
       {
         label: 'City',
-        data: cityPriceArray
+        data: cityPriceArray,
+        backgroundColor: 'rgba(165, 255, 140,0.4)',
+				borderColor: 'rgba(165, 255, 140,1)',
       }
       ]
     }
@@ -91,10 +95,9 @@ export default function Dashboard() {
 
   return (
     <div>
-          <Button onClick={handleFormSubmit}>
-
-          </Button>
+          
           <Card chart>
+          <Button onClick={handleFormSubmit}/>
             <CardBody>
               <h4 className={classes.cardTitle}>Daily Sales</h4>
               <p className={classes.cardCategory}>
