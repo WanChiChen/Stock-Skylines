@@ -49,6 +49,17 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [state, setState] = React.useState({
+    ticker: '',
+    start: '',
+    end: '',
+  });
+
+  React.useEffect(() => {
+    console.log(state)
+  }, [state]);
+
   const handleImageClick = image => {
     setImage(image);
   };
@@ -91,6 +102,7 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
@@ -101,6 +113,8 @@ export default function Admin({ ...rest }) {
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
+        inputState={state}
+        inputSetState={setState}
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>

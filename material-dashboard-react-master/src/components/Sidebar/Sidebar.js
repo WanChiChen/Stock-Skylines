@@ -33,19 +33,9 @@ export default function Sidebar(props) {
   const startRef = React.useRef();
   const endRef = React.useRef();
 
-  const [state, setState] = React.useState({
-    ticker: '',
-    start: '',
-    end: '',
-  });
-
   const handleSubmit = () => {
-    setState({ticker: tickerRef.current.value, start: startRef.current.value, end: endRef.current.value})
+    props.inputSetState({ticker: tickerRef.current.value, start: startRef.current.value, end: endRef.current.value})
   }
-  
-  React.useEffect(() => {
-    console.log(state)
-  }, [state]);
 
   const { color, logo, image, logoText, routes } = props;
   var links = (
