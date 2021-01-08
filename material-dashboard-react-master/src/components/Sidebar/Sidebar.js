@@ -28,6 +28,25 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
+
+  const tickerRef = React.useRef();
+  const startRef = React.useRef();
+  const endRef = React.useRef();
+
+  const [state, setState] = React.useState({
+    ticker: '',
+    start: '',
+    end: '',
+  });
+
+  const handleSubmit = () => {
+    setState({ticker: tickerRef.current.value, start: startRef.current.value, end: endRef.current.value})
+  }
+  
+  React.useEffect(() => {
+    console.log(state)
+  }, [state]);
+
   const { color, logo, image, logoText, routes } = props;
   var links = (
     <List className={classes.list}>
@@ -105,10 +124,10 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker"/>
-          <TextField id="start" defaultValue="01-01-2020" label="Start Date"/>
-          <TextField id="end" defaultValue="01-01-2020" label="End Date"/>
-          <Button>
+          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef}/>
+          <TextField id="start" defaultValue="01-01-2020" label="Start Date" inputRef={startRef}/>
+          <TextField id="end" defaultValue="01-01-2020" label="End Date" inputRef={endRef}/>
+          <Button onClick={handleSubmit}>
             Submit
           </Button>
           <div className={classes.sidebarWrapper}>{links}</div>
