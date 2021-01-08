@@ -42,34 +42,53 @@ let stockPriceArray = []
 let cityPriceArray = []
 let dateArray = []
 
-const handleFormSubmit = async () => {
-  const response = await post("/api/", {
-    ticker: "MAR",
-    period: "1d",
-    start: "2010-10-01",
-    end: "2020-12-31",
-    ratio: "0.8"
-  });
-
-  let data = JSON.parse(response.data);
-  let keys = Object.keys(data);
-  let stock_price = data[keys[0]];
-  let city_price = data[keys[1]];
-
-  Object.keys(stock_price).forEach(date => {
-    let utc = new Date(0);
-    utc.setUTCMilliseconds(date)
-    dateArray.push(utc)
-
-    stockPriceArray.push(stock_price[date])
-    cityPriceArray.push(city_price[date])
-  })
-
-  console.log(stockPriceArray)
-}
 export default function Dashboard() {
   const classes = useStyles();
-  console.log(dailySalesChart.data)
+
+  const handleFormSubmit = async () => {
+    const response = await post("/api/", {
+      ticker: "MAR",
+      period: "1d",
+      start: "2010-10-01",
+      end: "2020-12-31",
+      ratio: "0.8"
+    });
+  
+    let data = JSON.parse(response.data);
+    let keys = Object.keys(data);
+    let stock_price = data[keys[0]];
+    let city_price = data[keys[1]];
+  
+    Object.keys(stock_price).forEach(date => {
+      let utc = new Date(0);
+      utc.setUTCMilliseconds(date)
+      dateArray.push(utc)
+  
+      stockPriceArray.push(stock_price[date])
+      cityPriceArray.push(city_price[date])
+    })
+  
+    let retData = {
+      labels: dateArray,
+      datasets: [
+      {
+        label: 'Stock',
+        data: stockPriceArray
+      },
+      {
+        label: 'City',
+        data: cityPriceArray
+      }
+      ]
+    }
+  
+    setState({data: retData});
+  }
+  
+  const [state, setState] = React.useState({
+    data: []
+  });
+
   return (
     <div>
           <Button onClick={handleFormSubmit}>
@@ -87,7 +106,7 @@ export default function Dashboard() {
             </CardBody>
             <Line
                 className="ct-chart"
-                data={dailySalesChart.data}
+                data={state.data}
                 type="Line"
                 options={dailySalesChart.options}
                 listener={dailySalesChart.animation}
