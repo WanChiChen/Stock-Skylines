@@ -42,18 +42,19 @@ let stockPriceArray = []
 let cityPriceArray = []
 let dateArray = []
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
 
   const handleFormSubmit = async () => {
+
     const response = await post("/api/", {
-      ticker: "BABA",
+      ticker: props.inputState.ticker,
       period: "1d",
-      start: "2020-01-01",
-      end: "2020-12-31",
+      start: props.inputState.start,
+      end: props.inputState.end,
       ratio: "0.8"
     });
-  
+
     let data = JSON.parse(response.data);
     let keys = Object.keys(data);
     let stock_price = data[keys[0]];
