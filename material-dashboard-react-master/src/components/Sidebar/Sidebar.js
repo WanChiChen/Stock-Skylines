@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
+import TextField from "@material-ui/core/TextField";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -16,6 +17,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -91,28 +93,6 @@ export default function Sidebar(props) {
   );
   return (
     <div>
-      <Hidden mdUp implementation="css">
-        <Drawer
-          variant="temporary"
-          anchor={props.rtlActive ? "left" : "right"}
-          open={props.open}
-          classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
-          }}
-          onClose={props.handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-        >
-          {brand}
-          <div className={classes.sidebarWrapper}>
-            {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
-          </div>
-        </Drawer>
-        
-      </Hidden>
       <Hidden smDown implementation="css">
         <Drawer
           anchor={props.rtlActive ? "right" : "left"}
@@ -125,31 +105,12 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          
-          <CustomInput
-            labelText="TSLA"
-            id="ticker"
-            formControlProps={{
-              fullWidth: false
-            }}
-          />
-          <InputLabel style={{ color: "#AAAAAA" }}>Ticker</InputLabel>
-          <CustomInput
-            labelText="01-01-2020"
-            id="start"
-            formControlProps={{
-              fullWidth: false
-            }}
-          />
-          <InputLabel style={{ color: "#AAAAAA" }}>Start Date</InputLabel>
-          <CustomInput
-            labelText="12-31-2020"
-            id="end"
-            formControlProps={{
-              fullWidth: false
-            }}
-          />
-          <InputLabel style={{ color: "#AAAAAA" }}>End Date</InputLabel>
+          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker"/>
+          <TextField id="start" defaultValue="01-01-2020" label="Start Date"/>
+          <TextField id="end" defaultValue="01-01-2020" label="End Date"/>
+          <Button>
+            Submit
+          </Button>
           <div className={classes.sidebarWrapper}>{links}</div>
         </Drawer>
       </Hidden>
