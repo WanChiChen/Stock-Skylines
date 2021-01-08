@@ -115,8 +115,8 @@ export default function Sidebar(props) {
         >
           {brand}
           <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef}/>
-          <TextField id="start" defaultValue="01-01-2020" label="Start Date" inputRef={startRef}/>
-          <TextField id="end" defaultValue="01-01-2020" label="End Date" inputRef={endRef}/>
+          <TextField id="start" defaultValue="2020-01-01" label="Start Date" inputRef={startRef}/>
+          <TextField id="end" defaultValue="2020-12-31" label="End Date" inputRef={endRef}/>
           <Button onClick={handleSubmit}>
             Submit
           </Button>
