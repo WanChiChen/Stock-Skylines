@@ -45,51 +45,56 @@ let dateArray = []
 export default function Dashboard(props) {
   const classes = useStyles();
 
-  const handleFormSubmit = async () => {
+  React.useEffect(() => {
 
-    const response = await post("/api/", {
-      ticker: props.inputState.ticker,
-      period: "1d",
-      start: props.inputState.start,
-      end: props.inputState.end,
-      ratio: "0.8"
-    });
+    async function get_response(props) {
+      let ret = await post("/api/", {
+        ticker: props.inputState.ticker,
+        period: "1d",
+        start: props.inputState.start,
+        end: props.inputState.end,
+        ratio: "0.8"
+      });
 
-    let data = JSON.parse(response.data);
-    let keys = Object.keys(data);
-    let stock_price = data[keys[0]];
-    let city_price = data[keys[1]];
-  
-    Object.keys(stock_price).forEach(date => {
-      let utc = new Date(0);
-      utc.setUTCMilliseconds(date)
-      utc = utc.toLocaleDateString()
-      dateArray.push(utc)
-  
-      stockPriceArray.push(stock_price[date])
-      cityPriceArray.push(city_price[date])
-    })
-  
-    let retData = {
-      labels: dateArray,
-      datasets: [
-      {
-        label: keys[0],
-        data: stockPriceArray,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-				borderColor: 'rgba(75,192,192,1)',
-      },
-      {
-        label: keys[1],
-        data: cityPriceArray,
-        backgroundColor: 'rgba(165, 255, 140,0.4)',
-				borderColor: 'rgba(165, 255, 140,1)',
-      }
-      ]
+      if (ret.errors)
+        return;
+
+      let data = JSON.parse(ret.data);
+      let keys = Object.keys(data);
+      let stock_price = data[keys[0]];
+      let city_price = data[keys[1]];
+    
+      Object.keys(stock_price).forEach(date => {
+        let utc = new Date(0);
+        utc.setUTCMilliseconds(date)
+        utc = utc.toLocaleDateString()
+        dateArray.push(utc)
+    
+        stockPriceArray.push(stock_price[date])
+        cityPriceArray.push(city_price[date])
+      })
+    
+      let retData = {
+        labels: dateArray,
+        datasets: [
+        {
+          label: keys[0],
+          data: stockPriceArray,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+        },
+        {
+          label: keys[1],
+          data: cityPriceArray,
+          backgroundColor: 'rgba(165, 255, 140,0.4)',
+          borderColor: 'rgba(165, 255, 140,1)',
+        }
+      ]}
+    
+      setState({data: retData, ticker: keys[0], city: keys[1]});
     }
-  
-    setState({data: retData, ticker: keys[0], city: keys[1]});
-  }
+     get_response(props); 
+  },[props.inputState])
   
   const [state, setState] = React.useState({
     data: [],
@@ -101,7 +106,6 @@ export default function Dashboard(props) {
     <div>
           
           <Card chart>
-          <Button onClick={handleFormSubmit}/>
             <CardBody>
               <h4 className={classes.cardTitle}>Daily Sales</h4>
               <p className={classes.cardCategory}>
