@@ -7,14 +7,16 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
+import Grid from '@material-ui/core/Grid';
 import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
-import Card from "@material-ui/core/Card";
+import CardBody from "components/Card/CardBody.js";
+import Card from "components/Card/Card";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import TextField from "@material-ui/core/TextField";
 import routes from "routes.js";
-import Button from "components/CustomButtons/Button.js";
+import Button from "@material-ui/core/Button";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
@@ -110,9 +112,6 @@ export default function Admin({ ...rest }) {
       setFixedClasses("dropdown");
     }
   };
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
   const getRoute = () => {
     return window.location.pathname !== "/admin/maps";
   };
@@ -147,7 +146,6 @@ export default function Admin({ ...rest }) {
         logoText={"Stock Skylines"}
         logo={logo}
         image={image}
-        handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
         {...rest}
@@ -157,15 +155,19 @@ export default function Admin({ ...rest }) {
           <div className={classes.content}>
             <div className={classes.container}>
               <Card>
-                <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef} size="small"/>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <CardBody>
+                <Grid container alignItems="center" >
+                  <Grid item>
+                    <TextField id="ticker" defaultValue="TSLA" label="Stock ticker"  margin="none" inputRef={tickerRef}/>
+                  </Grid>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
                     format="yyyy/MM/dd"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label="Date picker inline"
+                    margin="none"
+                    id="start"
+                    label="End Date"
                     onChange={handleStartDateChange}
                     value={selectedStartDate}
                     KeyboardButtonProps={{
@@ -176,9 +178,9 @@ export default function Admin({ ...rest }) {
                     disableToolbar
                     variant="inline"
                     format="yyyy/MM/dd"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label="Date picker inline"
+                    margin="none"
+                    id="end"
+                    label="End Date"
                     onChange={handleEndDateChange}
                     value={selectedEndDate}
                     KeyboardButtonProps={{
@@ -186,10 +188,16 @@ export default function Admin({ ...rest }) {
                     }}
                   />
                 </MuiPickersUtilsProvider>
-                <Button onClick={handleSubmit}>
-                  Submit
-                </Button>
+                  <Grid item>
+                    <Button onClick={handleSubmit}>
+                      Submit
+                    </Button>
+                  </Grid>
+                </Grid>
+              </CardBody>
               </Card>
+              </div>
+              <div className={classes.container}>
               <DashboardPage inputState={state}/>
               </div>
           </div>
