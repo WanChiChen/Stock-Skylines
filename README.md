@@ -3,12 +3,19 @@
 
 ## Usage
 
-Find best prediction:
+Start server:
 ```
-python main.py --predict MAR 1d 2010-10-01 2020-12-31 0.8
+cd backend
+python manage.py runserver
 ```
 
-Compare stock to single city:
+Sample POST body:
 ```
-python main.py --analyze "New York" MAR 1d 2012-10-01 2020-12-31 0.7
+{
+    "ticker": "MAR",
+    "period": "1d",
+    "start": "2010-10-01",
+    "end": "2020-12-31",
+    "ratio": "0.8"
+}
 ```
