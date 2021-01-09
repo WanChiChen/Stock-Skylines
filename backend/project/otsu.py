@@ -1,11 +1,6 @@
 from PIL import Image, ImageOps
-from scipy.signal import convolve
-from scipy import ndimage
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import cv2 as cv
+
 
 # return histogram of pixel values of input img
 def histogram(img):
@@ -67,6 +62,5 @@ def run(src):
     img = applyThreshold(threshold, I)
 
     # blur image
-    #img = cv.blur(img,(5,5), 1)
     img = Image.fromarray(img)
     img.convert("L").save(f"../backend/segmented/{src}")

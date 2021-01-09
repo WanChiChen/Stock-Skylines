@@ -1,12 +1,9 @@
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import pandas as pd
 import os.path
 from PIL import Image, ImageOps
 from .otsu import run
 from .stonk import get_data
-from os import listdir
 
 def graph(src):
     if not os.path.isfile(f"../backend/graphs/charts/{src}.tsv"):
@@ -117,5 +114,5 @@ def find_max_city(ticker, period, start, end, ratio):
         if data[0] > max_sim:
             max_sim = data[0]
             max_city = data[1]
-    print(max_city)
+
     return max_sim, max_city
