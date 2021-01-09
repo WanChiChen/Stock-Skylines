@@ -3,9 +3,11 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import DateFnsUtils from '@date-io/date-fns';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
+import Paper from "@material-ui/core/paper";
 import TextField from "@material-ui/core/TextField";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
@@ -14,13 +16,35 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 import InputLabel from "@material-ui/core/InputLabel";
 // core components
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 const useStyles = makeStyles(styles);
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
 
 export default function Sidebar(props) {
   const classes = useStyles();
@@ -29,13 +53,22 @@ export default function Sidebar(props) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
 
+  const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2020-01-02'));
+  const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2021-01-02'));
+
   const tickerRef = React.useRef();
-  const startRef = React.useRef();
-  const endRef = React.useRef();
 
   const handleSubmit = () => {
-    props.inputSetState({ticker: tickerRef.current.value, start: startRef.current.value, end: endRef.current.value})
+    props.inputSetState({ticker: tickerRef.current.value, start: formatDate(selectedStartDate), end: formatDate(selectedEndDate)})
   }
+
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date);
+  };
 
   const { color, logo, image, logoText, routes } = props;
   var links = (
@@ -102,7 +135,6 @@ export default function Sidebar(props) {
   );
   return (
     <div>
-      <Hidden smDown implementation="css">
         <Drawer
           anchor={props.rtlActive ? "right" : "left"}
           variant="permanent"
@@ -114,15 +146,40 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef}/>
-          <TextField id="start" defaultValue="2020-01-01" label="Start Date" inputRef={startRef}/>
-          <TextField id="end" defaultValue="2020-12-31" label="End Date" inputRef={endRef}/>
+          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef} size="small"/>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="yyyy/MM/dd"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date picker inline"
+            onChange={handleStartDateChange}
+            value={selectedStartDate}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="yyyy/MM/dd"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date picker inline"
+            onChange={handleEndDateChange}
+            value={selectedEndDate}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+          </MuiPickersUtilsProvider>
           <Button onClick={handleSubmit}>
             Submit
           </Button>
           <div className={classes.sidebarWrapper}>{links}</div>
         </Drawer>
-      </Hidden>
     </div>
   );
 }

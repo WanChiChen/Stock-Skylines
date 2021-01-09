@@ -56,10 +56,6 @@ export default function Admin({ ...rest }) {
     end: '',
   });
 
-  React.useEffect(() => {
-    console.log(state)
-  }, [state]);
-
   const handleImageClick = image => {
     setImage(image);
   };

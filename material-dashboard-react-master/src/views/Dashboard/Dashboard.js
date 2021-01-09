@@ -119,8 +119,6 @@ export default function Dashboard(props) {
                 className="ct-chart"
                 data={state.data}
                 type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
               />
             <CardFooter chart>
               <div className={classes.stats}>
