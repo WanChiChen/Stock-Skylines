@@ -156,40 +156,40 @@ export default function Admin({ ...rest }) {
             <div className={classes.container}>
               <Card>
               <CardBody>
-                <Grid container alignItems="center" >
+                <Grid container alignItems="center" justify="center" >
                   <Grid item>
                     <TextField id="ticker" defaultValue="TSLA" label="Stock ticker"  margin="none" inputRef={tickerRef}/>
                   </Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="yyyy/MM/dd"
-                    margin="none"
-                    id="start"
-                    label="End Date"
-                    onChange={handleStartDateChange}
-                    value={selectedStartDate}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="yyyy/MM/dd"
-                    margin="none"
-                    id="end"
-                    label="End Date"
-                    onChange={handleEndDateChange}
-                    value={selectedEndDate}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="yyyy/MM/dd"
+                      margin="none"
+                      id="start"
+                      label="Start Date"
+                      onChange={handleStartDateChange}
+                      value={selectedStartDate}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="yyyy/MM/dd"
+                      margin="none"
+                      id="end"
+                      label="End Date"
+                      onChange={handleEndDateChange}
+                      value={selectedEndDate}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
                   <Grid item>
-                    <Button onClick={handleSubmit}>
+                    <Button onClick={handleSubmit} variant="contained">
                       Submit
                     </Button>
                   </Grid>
