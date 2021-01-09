@@ -1,5 +1,5 @@
 # Stock Skylines
- An attempt to find city skylines that fit a stock's graph
+ An attempt to predict stock performance by matching it to a city's skyline 
  - [Command line version](https://github.com/WanChiChen/stock-skylines-desktop)
  
 ## Live App
