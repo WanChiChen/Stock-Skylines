@@ -1,3 +1,1 @@
-export const chartOptions = {
-    
-}
+export const chartOptions = {};

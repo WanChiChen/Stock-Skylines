@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import CardBody from "components/Card/CardBody.js";
@@ -27,23 +27,21 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
+} from "@material-ui/pickers";
 
 let ps;
 
-  function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-  
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-  
-    return [year, month, day].join('-');
-  }
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
 
 const switchRoutes = (
   <Switch>
@@ -76,14 +74,22 @@ export default function Admin({ ...rest }) {
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2020-01-02'));
-  const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2021-01-02'));
+  const [selectedStartDate, setSelectedStartDate] = React.useState(
+    new Date("2020-01-02")
+  );
+  const [selectedEndDate, setSelectedEndDate] = React.useState(
+    new Date("2021-01-02")
+  );
 
   const tickerRef = React.useRef();
 
   const handleSubmit = () => {
-    setState({ticker: tickerRef.current.value, start: formatDate(selectedStartDate), end: formatDate(selectedEndDate)})
-  }
+    setState({
+      ticker: tickerRef.current.value,
+      start: formatDate(selectedStartDate),
+      end: formatDate(selectedEndDate),
+    });
+  };
 
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
@@ -94,15 +100,15 @@ export default function Admin({ ...rest }) {
   };
 
   const [state, setState] = React.useState({
-    ticker: '',
-    start: '',
-    end: '',
+    ticker: "",
+    start: "",
+    end: "",
   });
 
-  const handleImageClick = image => {
+  const handleImageClick = (image) => {
     setImage(image);
   };
-  const handleColorClick = color => {
+  const handleColorClick = (color) => {
     setColor(color);
   };
   const handleFixedClick = () => {
@@ -125,7 +131,7 @@ export default function Admin({ ...rest }) {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
-        suppressScrollY: false
+        suppressScrollY: false,
       });
       document.body.style.overflow = "hidden";
     }
@@ -152,13 +158,19 @@ export default function Admin({ ...rest }) {
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          <div className={classes.content}>
-            <div className={classes.container}>
-              <Card>
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <Card>
               <CardBody>
-                <Grid container alignItems="center" justify="center" >
+                <Grid container alignItems="center" justify="center">
                   <Grid item>
-                    <TextField id="ticker" defaultValue="TSLA" label="Stock ticker"  margin="none" inputRef={tickerRef}/>
+                    <TextField
+                      id="ticker"
+                      defaultValue="TSLA"
+                      label="Stock ticker"
+                      margin="none"
+                      inputRef={tickerRef}
+                    />
                   </Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
@@ -171,7 +183,7 @@ export default function Admin({ ...rest }) {
                       onChange={handleStartDateChange}
                       value={selectedStartDate}
                       KeyboardButtonProps={{
-                        'aria-label': 'change date',
+                        "aria-label": "change date",
                       }}
                     />
                     <KeyboardDatePicker
@@ -184,7 +196,7 @@ export default function Admin({ ...rest }) {
                       onChange={handleEndDateChange}
                       value={selectedEndDate}
                       KeyboardButtonProps={{
-                        'aria-label': 'change date',
+                        "aria-label": "change date",
                       }}
                     />
                   </MuiPickersUtilsProvider>
@@ -195,12 +207,12 @@ export default function Admin({ ...rest }) {
                   </Grid>
                 </Grid>
               </CardBody>
-              </Card>
-              </div>
-              <div className={classes.container}>
-              <DashboardPage inputState={state}/>
-              </div>
+            </Card>
           </div>
+          <div className={classes.container}>
+            <DashboardPage inputState={state} />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -28,7 +28,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-} from '@material-ui/pickers';
+} from "@material-ui/pickers";
 
 const useStyles = makeStyles(styles);
 
@@ -48,15 +48,15 @@ export default function Sidebar(props) {
         if (prop.path === "/upgrade-to-pro") {
           activePro = classes.activePro + " ";
           listItemClasses = classNames({
-            [" " + classes[color]]: true
+            [" " + classes[color]]: true,
           });
         } else {
           listItemClasses = classNames({
-            [" " + classes[color]]: activeRoute(prop.layout + prop.path)
+            [" " + classes[color]]: activeRoute(prop.layout + prop.path),
           });
         }
         const whiteFontClasses = classNames({
-          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
         });
         return (
           <NavLink
@@ -69,7 +69,7 @@ export default function Sidebar(props) {
               {typeof prop.icon === "string" ? (
                 <Icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
+                    [classes.itemIconRTL]: props.rtlActive,
                   })}
                 >
                   {prop.icon}
@@ -77,14 +77,14 @@ export default function Sidebar(props) {
               ) : (
                 <prop.icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
+                    [classes.itemIconRTL]: props.rtlActive,
                   })}
                 />
               )}
               <ListItemText
                 primary={props.rtlActive ? prop.rtlName : prop.name}
                 className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
+                  [classes.itemTextRTL]: props.rtlActive,
                 })}
                 disableTypography={true}
               />
@@ -96,27 +96,25 @@ export default function Sidebar(props) {
   );
   var brand = (
     <div className={classes.logo}>
-        <div className={classes.logoImage}>
-
-        </div>
-        {logoText}
+      <div className={classes.logoImage}></div>
+      {logoText}
     </div>
   );
   return (
     <div>
-        <Drawer
-          anchor={props.rtlActive ? "right" : "left"}
-          variant="permanent"
-          open
-          classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
-          }}
-        >
-          {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
-        </Drawer>
+      <Drawer
+        anchor={props.rtlActive ? "right" : "left"}
+        variant="permanent"
+        open
+        classes={{
+          paper: classNames(classes.drawerPaper, {
+            [classes.drawerPaperRTL]: props.rtlActive,
+          }),
+        }}
+      >
+        {brand}
+        <div className={classes.sidebarWrapper}>{links}</div>
+      </Drawer>
     </div>
   );
 }
@@ -129,5 +127,5 @@ Sidebar.propTypes = {
   image: PropTypes.string,
   logoText: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object),
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };
