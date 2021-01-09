@@ -32,43 +32,12 @@ import {
 
 const useStyles = makeStyles(styles);
 
-function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
 export default function Sidebar(props) {
   const classes = useStyles();
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-
-  const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2020-01-02'));
-  const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2021-01-02'));
-
-  const tickerRef = React.useRef();
-
-  const handleSubmit = () => {
-    props.inputSetState({ticker: tickerRef.current.value, start: formatDate(selectedStartDate), end: formatDate(selectedEndDate)})
-  }
-
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
-  };
-
-  const handleEndDateChange = (date) => {
-    setSelectedEndDate(date);
-  };
 
   const { color, logo, image, logoText, routes } = props;
   var links = (
@@ -146,38 +115,6 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <TextField id="ticker" defaultValue="TSLA" label="Stock ticker" inputRef={tickerRef} size="small"/>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="yyyy/MM/dd"
-            margin="normal"
-            id="date-picker-inline"
-            label="Date picker inline"
-            onChange={handleStartDateChange}
-            value={selectedStartDate}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="yyyy/MM/dd"
-            margin="normal"
-            id="date-picker-inline"
-            label="Date picker inline"
-            onChange={handleEndDateChange}
-            value={selectedEndDate}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-          </MuiPickersUtilsProvider>
-          <Button onClick={handleSubmit}>
-            Submit
-          </Button>
           <div className={classes.sidebarWrapper}>{links}</div>
         </Drawer>
     </div>
