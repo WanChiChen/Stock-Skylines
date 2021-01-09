@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Stock-Skylines/static/css/main.5ee3f738.chunk.css",
-    "main.js": "/Stock-Skylines/static/js/main.a5a17b8c.chunk.js",
-    "main.js.map": "/Stock-Skylines/static/js/main.a5a17b8c.chunk.js.map",
+    "main.js": "/Stock-Skylines/static/js/main.ad160ebc.chunk.js",
+    "main.js.map": "/Stock-Skylines/static/js/main.ad160ebc.chunk.js.map",
     "runtime-main.js": "/Stock-Skylines/static/js/runtime-main.2144bd07.js",
     "runtime-main.js.map": "/Stock-Skylines/static/js/runtime-main.2144bd07.js.map",
     "static/css/2.d0176e96.chunk.css": "/Stock-Skylines/static/css/2.d0176e96.chunk.css",
     "static/js/2.e507fbfb.chunk.js": "/Stock-Skylines/static/js/2.e507fbfb.chunk.js",
     "static/js/2.e507fbfb.chunk.js.map": "/Stock-Skylines/static/js/2.e507fbfb.chunk.js.map",
     "index.html": "/Stock-Skylines/index.html",
-    "precache-manifest.617bdcafd7a88fab3fcfd03a9d8b41fd.js": "/Stock-Skylines/precache-manifest.617bdcafd7a88fab3fcfd03a9d8b41fd.js",
+    "precache-manifest.1ffdb52e511d0ac7d5dcc5125bfec936.js": "/Stock-Skylines/precache-manifest.1ffdb52e511d0ac7d5dcc5125bfec936.js",
     "service-worker.js": "/Stock-Skylines/service-worker.js",
     "static/css/2.d0176e96.chunk.css.map": "/Stock-Skylines/static/css/2.d0176e96.chunk.css.map",
     "static/css/main.5ee3f738.chunk.css.map": "/Stock-Skylines/static/css/main.5ee3f738.chunk.css.map",
     "static/js/2.e507fbfb.chunk.js.LICENSE.txt": "/Stock-Skylines/static/js/2.e507fbfb.chunk.js.LICENSE.txt",
-    "static/js/main.a5a17b8c.chunk.js.LICENSE.txt": "/Stock-Skylines/static/js/main.a5a17b8c.chunk.js.LICENSE.txt",
+    "static/js/main.ad160ebc.chunk.js.LICENSE.txt": "/Stock-Skylines/static/js/main.ad160ebc.chunk.js.LICENSE.txt",
     "static/media/sidebar-1.jpg": "/Stock-Skylines/static/media/sidebar-1.8e9f0a3c.jpg",
     "static/media/sidebar-2.jpg": "/Stock-Skylines/static/media/sidebar-2.310509c9.jpg",
     "static/media/sidebar-3.jpg": "/Stock-Skylines/static/media/sidebar-3.25031690.jpg",
@@ -25,6 +25,6 @@
     "static/css/2.d0176e96.chunk.css",
     "static/js/2.e507fbfb.chunk.js",
     "static/css/main.5ee3f738.chunk.css",
-    "static/js/main.a5a17b8c.chunk.js"
+    "static/js/main.ad160ebc.chunk.js"
   ]
 }
