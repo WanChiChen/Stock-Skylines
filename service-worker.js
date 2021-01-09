@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Stock-Skylines/precache-manifest.4e93e268b71fc8daf82d4ccaf5fa4782.js"
+  "/Stock-Skylines/precache-manifest.617bdcafd7a88fab3fcfd03a9d8b41fd.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "95e13701262735d1b0e8f571bbdf36c2",
+    "revision": "beb2751c04c317c028e0ab724b683f00",
     "url": "/Stock-Skylines/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Stock-Skylines/static/css/2.d0176e96.chunk.css"
   },
   {
-    "revision": "31c471bdbf08d8d9d58c",
+    "revision": "3458d3997c0e1e2d903d",
     "url": "/Stock-Skylines/static/css/main.5ee3f738.chunk.css"
   },
   {
@@ -20,12 +20,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Stock-Skylines/static/js/2.e507fbfb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "31c471bdbf08d8d9d58c",
-    "url": "/Stock-Skylines/static/js/main.b7b2604b.chunk.js"
+    "revision": "3458d3997c0e1e2d903d",
+    "url": "/Stock-Skylines/static/js/main.a5a17b8c.chunk.js"
   },
   {
     "revision": "f7bdf0cfc9ea0dd44285692948c2d84f",
-    "url": "/Stock-Skylines/static/js/main.b7b2604b.chunk.js.LICENSE.txt"
+    "url": "/Stock-Skylines/static/js/main.a5a17b8c.chunk.js.LICENSE.txt"
   },
   {
     "revision": "fc757606786ed2e02357",
