@@ -5,12 +5,30 @@
 
 https://wanchichen.github.io/Stock-Skylines/
 
+## Dependencies
+Server dependencies:
+```
+cd backend
+pip install -r requirements.txt
+```
+
+Web-app dependencies:
+```
+cd react-app
+npm install
+```
+
 ## Usage
 
 Start server:
 ```
 cd backend
 python manage.py runserver
+```
+Start web-app:
+```
+cd react-app
+npm start
 ```
 
 Sample POST body:
