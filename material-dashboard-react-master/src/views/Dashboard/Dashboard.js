@@ -115,7 +115,7 @@ export default function Dashboard(props) {
         <Line className="ct-chart" data={state.data} type="Line" />
         <CardFooter chart>
           <div className={classes.stats}>
-            <AccessTime /> updated 4 minutes ago
+            <AccessTime /> updated 22 minutes ago
           </div>
         </CardFooter>
       </Card>
