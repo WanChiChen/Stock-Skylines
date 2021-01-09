@@ -104,28 +104,27 @@ export default function Dashboard(props) {
 
   return (
     <div>
-          
-          <Card chart>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody>
-            <Line
-                className="ct-chart"
-                data={state.data}
-                type="Line"
-              />
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
-          </Card>
+      <Card chart>
+        <CardBody>
+          <h4 className={classes.cardTitle}>Daily Sales</h4>
+          <p className={classes.cardCategory}>
+            <span className={classes.successText}>
+              <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+            </span>{" "}
+            increase in today sales.
+          </p>
+        </CardBody>
+          <Line
+            className="ct-chart"
+            data={state.data}
+            type="Line"
+          />
+        <CardFooter chart>
+          <div className={classes.stats}>
+            <AccessTime /> updated 4 minutes ago
+          </div>
+        </CardFooter>
+      </Card> 
     </div>
   );
 }

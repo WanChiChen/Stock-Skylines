@@ -7,7 +7,7 @@ import DateFnsUtils from '@date-io/date-fns';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Paper from "@material-ui/core/paper";
+import Card from "@material-ui/core/Card";
 import TextField from "@material-ui/core/TextField";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
