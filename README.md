@@ -1,6 +1,10 @@
 # Stock Skylines
  An attempt to find city skylines that fit a stock's graph
 
+## Command line version
+
+https://github.com/WanChiChen/stock-skylines-desktop
+
 ## Live App
 
 https://wanchichen.github.io/Stock-Skylines/
